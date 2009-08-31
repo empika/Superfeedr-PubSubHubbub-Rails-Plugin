@@ -1,0 +1,40 @@
+SupperfeedrPshb
+===============
+
+This is a simple PubSubHubbub client that allows you to easily subscribe and
+unsubscribe from feeds. It was initially written for Superfeedr.com but should
+work with other hubs although this is untested.
+
+It does not handle the challenge/response part of things but I have included a simple
+example of this below. It will not handle recieving updates to your feeds either.
+
+This plugin requires everyones favorite party: HTTParty
+So please make sure you install that.
+
+Example
+=======
+Lets create our happy Pshb'er:
+pshb = SuperfeedrPshb::SuperfeedrPshb.new("username", "password",
+"http://base.url.of.your.site.with.no.trailing.slash",
+"http://yourhub.com/defaults/to/superfeedr/but/is/optional")
+										
+Now lets subscribe to a feed:
+pshb.subscribe("/your/callback/inc/leading/slash", "http://feed.com/to/subscribe/to", "verify_token")
+
+Now lets unsubscribe the feed:
+pshb.unsubscribe("/your/callback/inc/leading/slash", "http://feed.com/to/subscribe/to", "verify_token")
+
+Here is an example of a simple controller action to echo back the challenge, you will
+also need to handle your feed updates in this action too:
+
+def pshb
+  if !params["hub.challenge"].nil?
+    @challenge = params["hub.challenge"]
+    render :action => "pshb", :status => 200
+  else
+    @challenge = "uhoh!"
+    render :action => "pshb", :status => 404
+  end
+end
+
+Copyright (c) 2009 Eddy Parris http://www.tech-noir.co.uk, released under the MIT license
