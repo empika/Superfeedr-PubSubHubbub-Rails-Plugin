@@ -19,10 +19,10 @@ pshb = SuperfeedrPshb::SuperfeedrPshb.new("username", "password",
 "http://yourhub.com/defaults/to/superfeedr/but/is/optional")
 										
 Now lets subscribe to a feed:
-pshb.subscribe("/your/callback/inc/leading/slash", "http://feed.com/to/subscribe/to", "verify_token")
+pshb.subscribe("/your/callback/inc/preceding/slash", "http://feed.com/to/subscribe/to", "verify_token")
 
 Now lets unsubscribe the feed:
-pshb.unsubscribe("/your/callback/inc/leading/slash", "http://feed.com/to/subscribe/to", "verify_token")
+pshb.unsubscribe("/your/callback/inc/preceding/slash", "http://feed.com/to/subscribe/to", "verify_token")
 
 Here is an example of a simple controller action to echo back the challenge, you will
 also need to handle your feed updates in this action too:
